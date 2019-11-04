@@ -2,19 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Java_EE_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/controllers/ReadMail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/controllers/sendMail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/lib/mailInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/views/readMail.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/views/sendMail.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ant.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFxApplication.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFxApplication.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/mailDisplayer.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/controllers/mailBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/controllers/mailBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/views/mailBox.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/views/mailBox.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/views/readMail.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/views/readMail.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/views/sendMail.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/views/sendMail.fxml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -267,6 +259,7 @@
       <workItem from="1572697383358" duration="33000" />
       <workItem from="1572725930995" duration="5877000" />
       <workItem from="1572768017064" duration="31030000" />
+      <workItem from="1572855318318" duration="421000" />
     </task>
     <servers />
   </component>

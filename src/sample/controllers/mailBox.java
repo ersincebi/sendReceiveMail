@@ -47,10 +47,10 @@ public class mailBox {
 
 		String data = message.getReceivedDate() + " -> " + message.getSubject() + " -> " + email;
 
-		System.out.println(message.getReceivedDate());
-		System.out.println(message.getSubject());
-		System.out.println(email);
-		System.out.println(bodyPart.getContent());
+		// System.out.println(message.getReceivedDate());
+		// System.out.println(message.getSubject());
+		// System.out.println(email);
+		// System.out.println(bodyPart.getContent());
 
 		return data;
 	}
