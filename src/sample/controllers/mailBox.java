@@ -35,25 +35,10 @@ public class mailBox {
 	 * @return
 	 * @throws Exception
 	 */
-<<<<<<< HEAD
 	public ArrayList<matrices> getEmailList() throws Exception {
 		return emailList.mailList();
 	}
-=======
-	public String mailData(Object item) throws Exception {
-		Message message = (Message) item;
-		Multipart multiPart = (Multipart) message.getContent();
-		BodyPart bodyPart = multiPart.getBodyPart(0);
-		Address[] froms = message.getFrom();
-		String email = froms == null ? null : ((InternetAddress) froms[0]).getAddress();
 
-		String data = message.getReceivedDate() + " -> " + message.getSubject() + " -> " + email;
-
-		// System.out.println(message.getReceivedDate());
-		// System.out.println(message.getSubject());
-		// System.out.println(email);
-		// System.out.println(bodyPart.getContent());
->>>>>>> cee53b9084de8783f0018ef8b5e7637ac9c40b1e
 
 	public String[] getContent(int index) throws Exception{
 		ArrayList<matrices> list = getEmailList();
