@@ -2,20 +2,21 @@ package sample.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
+
+import sample.lib.matrices;
+import sample.lib.semaphore;
 import sample.models.receiveMail_Model;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
 import java.util.ArrayList;
 
 public class mailBox {
 	@FXML
 	private ListView listView = new ListView();
+	public receiveMail_Model emailList = new receiveMail_Model();
+	public sendMail sendMail = new sendMail();
+	public readMail readMail = new readMail();
 
 	/**
 	 * refreseh the listview
@@ -24,35 +25,45 @@ public class mailBox {
 	 */
 	@FXML
 	public void listMails() throws Exception {
-		receiveMail_Model emailList = new receiveMail_Model();
-		ArrayList list = emailList.mailList();
-		for (Object listItem:list) {
-			listView.getItems().add(mailData(listItem));
-		}
+		clearListView();
+		emailList.clearList();
+		populateListview(getEmailList());
 	}
 
 	/**
-	 * it runs when it called by listMail
-	 * returns the readable data for users
-	 * @param item
+	 * returns the all mail contents
 	 * @return
 	 * @throws Exception
 	 */
-	public String mailData(Object item) throws Exception {
-		Message message = (Message) item;
-		Multipart multiPart = (Multipart) message.getContent();
-		BodyPart bodyPart = multiPart.getBodyPart(0);
-		Address[] froms = message.getFrom();
-		String email = froms == null ? null : ((InternetAddress) froms[0]).getAddress();
+	public ArrayList<matrices> getEmailList() throws Exception {
+		return emailList.mailList();
+	}
 
-		String data = message.getReceivedDate() + " -> " + message.getSubject() + " -> " + email;
-
-		System.out.println(message.getReceivedDate());
-		System.out.println(message.getSubject());
-		System.out.println(email);
-		System.out.println(bodyPart.getContent());
-
+	public String[] getContent(int index) throws Exception{
+		ArrayList<matrices> list = getEmailList();
+		String[] data;
+		matrices item = list.get(index);
+		data = new String[]{
+				String.valueOf(item.date)
+				, item.subject
+				, item.from
+				, String.valueOf(item.message)
+		};
 		return data;
+	}
+	/**
+	 * populates inside of the listview
+	 * @param list
+	 * @throws Exception
+	 */
+	public void populateListview(ArrayList<matrices> list) throws Exception {
+		for (matrices item: list) {
+			listView.getItems().add(
+					item.from
+					+ " -> " +
+					item.subject
+			);
+		}
 	}
 
 	/**
@@ -62,22 +73,13 @@ public class mailBox {
 	 */
 	@FXML
 	public void openSendMail(ActionEvent event) throws Exception{
-		Parent root = FXMLLoader.load(getClass().getResource("../views/sendMail.fxml"));
-		Stage stage = new Stage();
-		stage.setTitle("Send Receive Mail");
-		stage.setScene(new Scene(root));
-		stage.setResizable(false);
-		stage.show();
+		sendMail.openStage();
 	}
 
 	@FXML
-	public void openReadMail(ActionEvent event) throws Exception{
-		Parent root = FXMLLoader.load(getClass().getResource("../views/readMail.fxml"));
-		Stage stage = new Stage();
-		stage.setTitle("Send Receive Mail");
-		stage.setScene(new Scene(root));
-		stage.setResizable(false);
-		stage.show();
+	public void openReadMail(MouseEvent event) throws Exception{
+		String[] item = getContent(listView.getSelectionModel().getSelectedIndex());
+		readMail.openStage(item);
 	}
 
 	/**
@@ -87,4 +89,10 @@ public class mailBox {
 	public void closeStage(ActionEvent event){
 		System.exit(0);
 	}
+
+	/**
+	 * clears  the items inside listView
+	 * every time called
+	 */
+	public void clearListView(){ listView.getItems().clear(); }
 }

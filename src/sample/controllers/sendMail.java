@@ -10,8 +10,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import javafx.stage.Stage;
-import sample.lib.mailInfo;
 import sample.models.sendMail_Model;
+
+import java.io.IOException;
 
 public class sendMail {
 	@FXML
@@ -23,16 +24,23 @@ public class sendMail {
 	@FXML
 	private TextArea messageBody;
 
+	public void openStage() throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("../views/sendMail.fxml"));
+		Stage stage = new Stage();
+		stage.setTitle("Send Receive Mail");
+		stage.setScene(new Scene(root));
+		stage.setResizable(false);
+		stage.show();
+	}
+
 	/**
-	 * initializer of send mail takes empty or filled toMail value and calls open stage
-	 * according to toMail value it fills the 'toMail' text field
-	 * @param tomail
-	 * @throws Exception
+	 * when 'reply' clicked on read mail
+	 * this function will set the textfield automaticaly
+	 * @param toMailVal
 	 */
-	/*public sendMail(String tomail) throws Exception{
-		if(!tomail.isEmpty())
-			toMail.setText(tomail);
-	}*/
+	public void setToMail(String toMailVal){
+		toMail.setText(toMailVal);
+	}
 
 	/**
 	 * calls sendMail_Model under Models folder
@@ -44,8 +52,7 @@ public class sendMail {
 	 * @throws Exception
 	 */
 	public void mailSend() throws Exception {
-		mailInfo info = new mailInfo();
-		new sendMail_Model(info.getUser(),info.getPassword(),toMail.getText(),subject.getText(),messageBody.getText());
+		new sendMail_Model(toMail.getText(),subject.getText(),messageBody.getText());
 
 		Alert dialog = new Alert(Alert.AlertType.INFORMATION);
 		dialog.setTitle("Information Dialog");
