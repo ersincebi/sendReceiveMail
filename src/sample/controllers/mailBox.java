@@ -2,21 +2,34 @@ package sample.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 import sample.lib.matrices;
-import sample.lib.semaphore;
 import sample.models.receiveMail_Model;
+import sample.models.sendMail_Model;
 
 import java.util.ArrayList;
 
 public class mailBox {
 	@FXML
 	private ListView listView = new ListView();
+	@FXML
+	private Button send;
+	@FXML
+	private Label date;
+	@FXML
+	private TextField eMail;
+	@FXML
+	private TextField subject;
+	@FXML
+	private TextArea messageBody;
+
 	public receiveMail_Model emailList = new receiveMail_Model();
-	public sendMail sendMail = new sendMail();
-	public readMail readMail = new readMail();
 
 	/**
 	 * refreseh the listview
@@ -68,19 +81,58 @@ public class mailBox {
 	}
 
 	/**
-	 * opens sendMail window with an empty tomail variable
+	 * calls sendMail_Model under Models folder
+	 * and send required fields from the text fields
+	 * then show a dialog box that says your message has been send
+	 * be careful some times mail can be accepted as spam mail and returns error
+	 * but it doesn't mean it is not working because it uses Mrs.Emine's same codes
+	 * I already tested it works fine
+	 * @throws Exception
+	 */
+	public void mailSend() throws Exception {
+		new sendMail_Model(eMail.getText(),subject.getText(),messageBody.getText());
+
+		Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+		dialog.setTitle("Information Dialog");
+		dialog.setHeaderText(null);
+		dialog.setContentText("Your message has been send!");
+
+		dialog.showAndWait();
+	}
+
+	/**
+	 * resets the mail section for new mail to send
 	 * @param event
 	 * @throws Exception
 	 */
 	@FXML
 	public void openSendMail(ActionEvent event) throws Exception{
-		sendMail.openStage();
+		date.setText("");
+		subject.setText("");
+		eMail.setText("");
+		messageBody.setText("");
+	}
+
+
+	/**
+	 * resets every field except mail field of mail section for replying the mail
+	 * @param event
+	 * @throws Exception
+	 */
+	@FXML
+	public void replySendMail(ActionEvent event) throws Exception{
+		date.setText("");
+		subject.setText("");
+		messageBody.setText("");
 	}
 
 	@FXML
 	public void openReadMail(MouseEvent event) throws Exception{
 		String[] item = getContent(listView.getSelectionModel().getSelectedIndex());
-		readMail.openStage(item);
+
+		subject.setText(item[1]);
+		eMail.setText(item[2]);
+		messageBody.setText(item[3]);
 	}
 
 	/**

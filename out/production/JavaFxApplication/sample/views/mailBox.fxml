@@ -1,28 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.mailBox">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.mailBox">
  <children>
     <MenuBar prefHeight="22.0" prefWidth="900.0">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
             <MenuItem fx:id="newMail" mnemonicParsing="false" onAction="#openSendMail" text="New" />
+            <MenuItem fx:id="replyMail" mnemonicParsing="false" onAction="#replySendMail" text="Reply" />
             <MenuItem fx:id="newMail1" mnemonicParsing="false" onAction="#listMails" text="Refresh List" />
             <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#closeStage" text="Close" />
           </items>
         </Menu>
       </menus>
     </MenuBar>
-    <ListView fx:id="listView" onMouseClicked="#openReadMail" prefHeight="628.0" prefWidth="900.0">
+    <ListView fx:id="listView" onMouseClicked="#openReadMail" prefHeight="400.0" prefWidth="900.0">
          <VBox.margin>
             <Insets />
          </VBox.margin></ListView>
+      <VBox prefHeight="200.0" prefWidth="900.0">
+         <children>
+            <Label fx:id="date">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+             <TextField fx:id="eMail" promptText="From/To:...">
+                 <VBox.margin>
+                     <Insets top="10.0" />
+                 </VBox.margin>
+             </TextField>
+             <TextField fx:id="subject" promptText="Subject">
+                 <VBox.margin>
+                     <Insets top="10.0" />
+                 </VBox.margin>
+             </TextField>
+             <TextArea fx:id="messageBody" promptText="Message...">
+                 <VBox.margin>
+                     <Insets top="10.0" />
+                 </VBox.margin>
+             </TextArea>
+             <Button fx:id="send" mnemonicParsing="false" onAction="#mailSend" prefWidth="200.0" text="SEND">
+               <VBox.margin>
+                  <Insets left="250.0" top="10.0" />
+               </VBox.margin></Button>
+         </children>
+      </VBox>
  </children>
 </VBox>
