@@ -2,13 +2,18 @@ package sample.models;
 
 import sample.lib.mailInfo;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.*;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.util.Date;
 import java.util.Properties;
 
 public class sendMail_Model {
-    public sendMail_Model(String toMail, String messageSubject, String messageBody) throws Exception{
+    public sendMail_Model(String toMail, String messageSubject, String messageBody, String filePath) throws Exception{
         Properties props = new Properties();
         mailInfo info = new mailInfo();
         props.put("mail.smtp.host", info.getSmtpHost());
@@ -26,12 +31,26 @@ public class sendMail_Model {
 
         Session session = Session.getDefaultInstance(props,auth);
 
-        MimeMessage message = new MimeMessage(session);
-        message.setFrom();
-        message.setRecipients(Message.RecipientType.TO,toMail);
-        message.setSubject(messageSubject);
-        message.setSentDate(new Date());
-        message.setText(messageBody);
-        Transport.send(message);
+        MimeMessage mimeMessage = new MimeMessage(session);
+        mimeMessage.setFrom();
+        mimeMessage.setRecipients(Message.RecipientType.TO, toMail);
+        mimeMessage.setSubject(messageSubject);
+        mimeMessage.setSentDate(new Date());
+        Multipart multipart = new MimeMultipart();
+
+        BodyPart bodyPart = new MimeBodyPart();
+        bodyPart.setText(messageBody);
+        multipart.addBodyPart(bodyPart);
+
+        if(!filePath.isEmpty()) {
+            BodyPart partForAtt = new MimeBodyPart();
+            DataSource source = new FileDataSource(filePath);
+            partForAtt.setDataHandler(new DataHandler(source));
+            partForAtt.setFileName(filePath);
+            multipart.addBodyPart(partForAtt);
+        }
+
+        mimeMessage.setContent(multipart);
+        Transport.send(mimeMessage);
     }
 }

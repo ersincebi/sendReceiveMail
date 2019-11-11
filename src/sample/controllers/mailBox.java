@@ -9,13 +9,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import sample.lib.matrices;
 import sample.models.receiveMail_Model;
 import sample.models.sendMail_Model;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class mailBox {
+	@FXML
+	private Stage stage;
 	@FXML
 	private ListView listView = new ListView();
 	@FXML
@@ -28,6 +33,8 @@ public class mailBox {
 	private TextField subject;
 	@FXML
 	private TextArea messageBody;
+	@FXML
+	private Label filePath;
 
 	public receiveMail_Model emailList = new receiveMail_Model();
 
@@ -90,7 +97,7 @@ public class mailBox {
 	 * @throws Exception
 	 */
 	public void mailSend() throws Exception {
-		new sendMail_Model(eMail.getText(),subject.getText(),messageBody.getText());
+		new sendMail_Model(eMail.getText(),subject.getText(),messageBody.getText(),filePath.getText());
 
 		Alert dialog = new Alert(Alert.AlertType.INFORMATION);
 		dialog.setTitle("Information Dialog");
@@ -135,6 +142,15 @@ public class mailBox {
 		messageBody.setText(item[3]);
 	}
 
+	@FXML
+	public void openFile(){
+		FileChooser fileChooser = new FileChooser();
+
+		File file = fileChooser.showOpenDialog(stage);
+
+		filePath.setText(String.valueOf(file));
+
+	}
 	/**
 	 * closes entire app when it called
 	 * @param event
